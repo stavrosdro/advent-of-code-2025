@@ -49,20 +49,19 @@ function part1() {
     console.timeEnd(`Challenge ${DAY_NUMBER} part 1`);
 }
 
-function mergeRanges(ranges) {
-    if (!ranges.length) return [];
-    ranges.sort((a, b) => a[0] - b[0]);
-    const merged = [ranges[0]];
-    for (let i = 1; i < ranges.length; i++) {
-        const [start, end] = ranges[i];
-        const last = merged[merged.length - 1];
-        if (start <= last[1]) {
-            last[1] = Math.max(last[1], end);
-        } else {
-            merged.push([start, end]);
+function mergeRanges(buckets) {
+    buckets.sort((b1, b2) => b1[0] - b2[0]);
+    for (let i = 0; i < buckets.length; i++) {
+        const range = buckets[i];
+        if (i < buckets.length - 1) {
+            const next = buckets[i + 1];
+            if (range[1] >= next[0]) {
+                range[1] = Math.max(range[1], next[1]);
+                buckets.splice(i + 1, 1);
+                i--;
+            }
         }
     }
-    return merged;
 }
 
 function part2() {
@@ -87,7 +86,7 @@ function part2() {
             return;
         }
     });
-    buckets = mergeRanges(buckets);
+    mergeRanges(buckets);
     buckets.forEach((v) => {
         counter += 1 + v[1] - v[0];
     });
