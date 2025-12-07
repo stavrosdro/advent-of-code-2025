@@ -1,4 +1,4 @@
-const { part1, part2 } = require('./src/day-06');
+const { part1, part2 } = require('./src/day-07');
 
 console.log('Hello There\n');
 
