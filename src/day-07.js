@@ -91,12 +91,11 @@ function part2() {
         });
         beams = newBeams;
     });
-    let sum = 0;
-    Object.keys(beams).forEach((key) => {
-        sum += beams[key];
-    });
 
-    console.log(sum);
+    console.log(
+        Object.keys(beams).reduce((acc, curr) => (acc += beams[curr]), 0)
+    );
+
     console.timeEnd(`Challenge ${DAY_NUMBER} part 2`);
 }
 
